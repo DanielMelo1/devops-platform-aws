@@ -1,0 +1,23 @@
+# Terraform
+.terraform/
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.backup
+*.tfvars
+!envs/dev/terraform.tfvars.example
+!envs/prod/terraform.tfvars.example
+crash.log
+
+# Credenciais e segredos
+*.pem
+*.key
+.env
+.env.*
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
