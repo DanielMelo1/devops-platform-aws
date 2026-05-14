@@ -9,9 +9,3 @@ variable "project_name" {
   type        = string
   default     = "devops-platform"
 }
-
-variable "environment" {
-  description = "Nome do ambiente — bootstrap é executado uma única vez"
-  type        = string
-  default     = "bootstrap"
-}

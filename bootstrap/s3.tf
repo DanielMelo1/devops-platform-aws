@@ -1,5 +1,11 @@
 # Bucket para armazenar o estado remoto do Terraform
 resource "aws_s3_bucket" "terraform_state" {
+  #checkov:skip=CKV_AWS_18:Logging de acesso desnecessário para bucket de remote state
+  #checkov:skip=CKV_AWS_144:Cross-region replication fora do escopo do projeto
+  #checkov:skip=CKV_AWS_145:AES256 suficiente para remote state — KMS adicionaria custo sem benefício proporcional
+  #checkov:skip=CKV2_AWS_61:Lifecycle policy não aplicável — objetos de estado não expiram
+  #checkov:skip=CKV2_AWS_62:Event notifications desnecessário para bucket de remote state
+
   bucket = "${var.project_name}-tfstate-${data.aws_caller_identity.current.account_id}"
 
   # Proteção contra destruição acidental do estado
