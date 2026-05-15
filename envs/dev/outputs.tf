@@ -17,3 +17,18 @@ output "vpc_cidr" {
   description = "CIDR block da VPC do ambiente dev"
   value       = module.network.vpc_cidr
 }
+
+output "db_endpoint" {
+  description = "Endpoint de conexão do RDS do ambiente dev"
+  value       = module.database.db_endpoint
+}
+
+output "db_port" {
+  description = "Porta do PostgreSQL"
+  value       = module.database.db_port
+}
+
+output "db_name" {
+  description = "Nome do banco de dados criado no ambiente dev"
+  value       = module.database.db_name
+}
