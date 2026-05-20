@@ -40,3 +40,30 @@ module "database" {
   multi_az           = var.multi_az
   allowed_cidr_blocks = [module.network.vpc_cidr]
 }
+
+module "security" {
+  source = "../../terraform/modules/security"
+
+  project_name     = var.project_name
+  environment      = var.environment
+  vpc_id           = module.network.vpc_id
+  vpc_cidr         = module.network.vpc_cidr
+  eks_cluster_name = "${var.project_name}-${var.environment}"
+}
+
+
+module "compute" {
+  source = "../../terraform/modules/compute"
+
+  project_name       = var.project_name
+  environment        = var.environment
+  private_subnet_ids = module.network.private_subnet_ids
+  eks_cluster_sg_id  = module.security.eks_cluster_sg_id
+  cluster_role_arn   = module.security.eks_cluster_role_arn
+  nodes_role_arn     = module.security.eks_nodes_role_arn
+  eks_version        = var.eks_version
+  node_instance_type = var.node_instance_type
+  node_desired_size  = var.node_desired_size
+  node_min_size      = var.node_min_size
+  node_max_size      = var.node_max_size
+}

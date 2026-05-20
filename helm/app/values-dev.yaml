@@ -1,0 +1,17 @@
+image:
+  repository: "509399596610.dkr.ecr.us-east-1.amazonaws.com/devops-platform"
+  tag: "latest"
+
+replicaCount: 2
+
+resources:
+  requests:
+    cpu: "100m"
+    memory: "128Mi"
+  limits:
+    cpu: "300m"
+    memory: "256Mi"
+
+hpa:
+  minReplicas: 2
+  maxReplicas: 5

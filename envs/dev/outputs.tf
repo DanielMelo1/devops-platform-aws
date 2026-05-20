@@ -32,3 +32,18 @@ output "db_name" {
   description = "Nome do banco de dados criado no ambiente dev"
   value       = module.database.db_name
 }
+
+output "eks_cluster_name" {
+  description = "Nome do cluster EKS — usado pelo kubectl e Helm"
+  value       = module.compute.cluster_name
+}
+
+output "eks_cluster_endpoint" {
+  description = "Endpoint da API do Kubernetes"
+  value       = module.compute.cluster_endpoint
+}
+
+output "eks_cluster_version" {
+  description = "Versao do Kubernetes em execucao"
+  value       = module.compute.cluster_version
+}
