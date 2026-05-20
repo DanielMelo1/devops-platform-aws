@@ -105,3 +105,9 @@ variable "node_max_size" {
   type        = number
   default     = 4
 }
+
+variable "alarm_email" {
+  description = "Email para receber notificacoes dos alarmes CloudWatch"
+  type        = string
+  default     = "daniel@devops-platform.com"
+}

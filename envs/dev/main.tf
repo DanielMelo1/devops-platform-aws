@@ -66,3 +66,13 @@ module "compute" {
   node_min_size      = var.node_min_size
   node_max_size      = var.node_max_size
 }
+
+module "monitoring" {
+  source = "../../terraform/modules/monitoring"
+
+  project_name     = var.project_name
+  environment      = var.environment
+  eks_cluster_name = "${var.project_name}-${var.environment}"
+  rds_instance_id  = "${var.project_name}-${var.environment}"
+  alarm_email      = var.alarm_email
+}

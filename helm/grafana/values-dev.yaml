@@ -1,0 +1,35 @@
+adminPassword: "DevOps2026Grafana"
+
+service:
+  type: LoadBalancer
+
+persistence:
+  enabled: false
+
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+      - name: CloudWatch
+        type: cloudwatch
+        jsonData:
+          authType: default
+          defaultRegion: us-east-1
+
+dashboardProviders:
+  dashboardproviders.yaml:
+    apiVersion: 1
+    providers:
+      - name: default
+        folder: DevOps Platform
+        type: file
+        options:
+          path: /var/lib/grafana/dashboards
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 200m
+    memory: 256Mi
