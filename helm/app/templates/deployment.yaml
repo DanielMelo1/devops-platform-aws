@@ -4,7 +4,6 @@ metadata:
   name: {{ .Release.Name }}
   labels:
     app: {{ .Release.Name }}
-    environment: {{ .Values.env.dbName | quote }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -23,8 +22,6 @@ spec:
           ports:
             - containerPort: 5000
           env:
-            - name: DATABASE_URL
-              value: "postgresql://{{ .Values.env.dbUsername }}:$(DB_PASSWORD)@$(DB_HOST):{{ .Values.env.dbPort }}/{{ .Values.env.dbName }}"
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -35,6 +32,8 @@ spec:
                 secretKeyRef:
                   name: db-secret
                   key: host
+            - name: DATABASE_URL
+              value: "postgresql://{{ .Values.env.dbUsername }}:$(DB_PASSWORD)@$(DB_HOST):{{ .Values.env.dbPort }}/{{ .Values.env.dbName }}"
           resources:
             requests:
               cpu: {{ .Values.resources.requests.cpu }}
