@@ -48,7 +48,6 @@ module "security" {
   environment      = var.environment
   vpc_id           = module.network.vpc_id
   vpc_cidr         = module.network.vpc_cidr
-  eks_cluster_name = "${var.project_name}-${var.environment}"
 }
 
 

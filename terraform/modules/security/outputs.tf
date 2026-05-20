@@ -17,13 +17,3 @@ output "eks_nodes_role_arn" {
   description = "ARN da IAM role dos nodes do EKS"
   value       = aws_iam_role.eks_nodes.arn
 }
-
-output "app_role_arn" {
-  description = "ARN da IAM role dos pods da aplicacao — usada pelo IRSA"
-  value       = aws_iam_role.app.arn
-}
-
-output "oidc_provider_arn" {
-  description = "ARN do OIDC Provider — usada pelo IRSA"
-  value       = aws_iam_openid_connect_provider.eks.arn
-}

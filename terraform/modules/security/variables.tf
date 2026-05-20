@@ -18,8 +18,3 @@ variable "vpc_cidr" {
   description = "CIDR da VPC — usado nas regras do Security Group"
   type        = string
 }
-
-variable "eks_cluster_name" {
-  description = "Nome do cluster EKS"
-  type        = string
-}
