@@ -75,3 +75,33 @@ variable "multi_az" {
   type        = bool
   default     = false
 }
+
+variable "eks_version" {
+  description = "Versao do Kubernetes no EKS"
+  type        = string
+  default     = "1.32"
+}
+
+variable "node_instance_type" {
+  description = "Tipo EC2 dos nodes — t3.medium no dev para reduzir custo"
+  type        = string
+  default     = "t3.medium"
+}
+
+variable "node_desired_size" {
+  description = "Numero desejado de nodes em operacao normal"
+  type        = number
+  default     = 2
+}
+
+variable "node_min_size" {
+  description = "Minimo de nodes — escala para baixo ate esse limite"
+  type        = number
+  default     = 1
+}
+
+variable "node_max_size" {
+  description = "Maximo de nodes — escala para cima ate esse limite"
+  type        = number
+  default     = 4
+}
