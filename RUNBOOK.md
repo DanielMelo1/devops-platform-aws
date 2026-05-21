@@ -156,3 +156,39 @@ github.com/DanielMelo1
 | Total estimado | ~USD 0.245 |
 
 Destruir apos validacao: terraform destroy
+
+---
+
+## Apply Final — Problemas e Solucoes
+
+### P14 — metrics-server.yaml incompativel com EKS
+**Sintoma:** error no kinds HelmChart in version helm.cattle.io/v1
+**Causa:** tipo HelmChart do Rancher nao existe no EKS
+**Solucao:** instalar via Helm diretamente
+**Comando:**
+    helm repo add metrics-server https://kubernetes-sigs.github.io/metrics-server/
+    helm upgrade --install metrics-server metrics-server/metrics-server
+      --namespace kube-system --set args[0]=--kubelet-insecure-tls
+**Correcao no codigo:** k8s/metrics-server.yaml substituido por documentacao do comando
+
+### P15 — Grafana sem acesso ao CloudWatch
+**Sintoma:** no EC2 IMDS role found — CloudWatch query failed
+**Causa:** IRSA nao configurado para o Grafana
+**Solucao:** criar IAM role com CloudWatchReadOnlyAccess + IRSA no modulo monitoring
+**Correcao no codigo:** terraform/modules/monitoring/main.tf + envs/dev/main.tf
+
+### P16 — automountServiceAccountToken false no Grafana
+**Sintoma:** IRSA configurado mas credenciais nao chegavam no pod
+**Causa:** token desabilitado por padrao no chart do Grafana
+**Solucao:** adicionar serviceAccount.autoMount: true no values-dev.yaml
+**Correcao no codigo:** helm/grafana/values-dev.yaml
+
+### P17 — Grafana dashboard sem dados
+**Sintoma:** No data no painel mesmo com datasource funcionando
+**Causa:** Period auto + datasource sem Assume Role ARN configurado
+**Solucao:** 
+- Usar Explore em vez de Dashboard para primeira visualizacao
+- Configurar assumeRoleArn no datasource
+- Period fixo em 300
+- Region explicita us-east-1 na query
+**Correcao no codigo:** helm/grafana/values-dev.yaml atualizado com assumeRoleArn e period 300

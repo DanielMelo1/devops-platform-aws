@@ -1,5 +1,11 @@
 adminPassword: "DevOps2026Grafana"
 
+serviceAccount:
+  create: true
+  autoMount: true
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::509399596610:role/devops-platform-dev-grafana-role
+
 service:
   type: LoadBalancer
 
@@ -12,9 +18,13 @@ datasources:
     datasources:
       - name: CloudWatch
         type: cloudwatch
+        isDefault: true
         jsonData:
           authType: default
+          assumeRoleArn: arn:aws:iam::509399596610:role/devops-platform-dev-grafana-role
           defaultRegion: us-east-1
+          defaultMetricName: CPUUtilization
+          period: "300"
 
 dashboardProviders:
   dashboardproviders.yaml:

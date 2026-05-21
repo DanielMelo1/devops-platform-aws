@@ -75,4 +75,5 @@ module "monitoring" {
   eks_cluster_name = "${var.project_name}-${var.environment}"
   rds_instance_id  = "${var.project_name}-${var.environment}"
   alarm_email      = var.alarm_email
+  oidc_provider_id = "DE9661147C47439875DBD47BB29954FE"
 }

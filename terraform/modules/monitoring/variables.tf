@@ -23,3 +23,8 @@ variable "alarm_email" {
   description = "Email para receber notificacoes dos alarmes"
   type        = string
 }
+
+variable "oidc_provider_id" {
+  description = "ID do OIDC Provider do cluster EKS — usado para IRSA do Grafana"
+  type        = string
+}

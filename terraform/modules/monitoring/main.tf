@@ -89,3 +89,36 @@ resource "aws_cloudwatch_metric_alarm" "rds_connections" {
     Environment = var.environment
   }
 }
+
+data "aws_caller_identity" "current" {}
+
+data "aws_iam_policy_document" "grafana_assume_role" {
+  statement {
+    effect = "Allow"
+    principals {
+      type        = "Federated"
+      identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/${var.oidc_provider_id}"]
+    }
+    actions = ["sts:AssumeRoleWithWebIdentity"]
+    condition {
+      test     = "StringEquals"
+      variable = "oidc.eks.us-east-1.amazonaws.com/id/${var.oidc_provider_id}:sub"
+      values   = ["system:serviceaccount:monitoring:grafana"]
+    }
+  }
+}
+
+resource "aws_iam_role" "grafana" {
+  name               = "${var.project_name}-${var.environment}-grafana-role"
+  assume_role_policy = data.aws_iam_policy_document.grafana_assume_role.json
+
+  tags = {
+    Name        = "${var.project_name}-${var.environment}-grafana-role"
+    Environment = var.environment
+  }
+}
+
+resource "aws_iam_role_policy_attachment" "grafana_cloudwatch" {
+  role       = aws_iam_role.grafana.name
+  policy_arn = "arn:aws:iam::aws:policy/CloudWatchReadOnlyAccess"
+}

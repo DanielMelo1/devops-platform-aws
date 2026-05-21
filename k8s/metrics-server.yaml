@@ -1,18 +1,10 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: metrics-server
----
-apiVersion: helm.cattle.io/v1
-kind: HelmChart
-metadata:
-  name: metrics-server
-  namespace: metrics-server
-spec:
-  repo: https://kubernetes-sigs.github.io/metrics-server/
-  chart: metrics-server
-  version: "3.12.0"
-  targetNamespace: metrics-server
-  valuesContent: |-
-    args:
-      - --kubelet-insecure-tls
+# Metrics Server para EKS
+# Instalar via Helm — nao usar kubectl apply diretamente
+#
+# helm repo add metrics-server https://kubernetes-sigs.github.io/metrics-server/
+# helm repo update
+# helm upgrade --install metrics-server metrics-server/metrics-server \
+#   --namespace kube-system \
+#   --set args[0]="--kubelet-insecure-tls"
+#
+# Necessario para HPA funcionar — coleta metricas de CPU e memoria dos pods
