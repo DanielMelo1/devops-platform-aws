@@ -3,9 +3,9 @@
 ![CI/CD](https://github.com/DanielMelo1/devops-platform-aws/actions/workflows/pipeline.yml/badge.svg)
 
 
-Plataforma DevOps completa na AWS — do commit ao deploy em produção.
-Construída para demonstrar o ciclo completo de operação: infraestrutura como código,
-containerização, orquestração, CI/CD, segurança e observabilidade.
+Plataforma DevOps completa na AWS que automatiza o ciclo do commit ao deploy
+em produção — com segurança validada em cada etapa, infraestrutura versionada
+e observabilidade para agir antes que o problema chegue ao usuário final.
 
 ---
 
