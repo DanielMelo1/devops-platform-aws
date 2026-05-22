@@ -13,7 +13,7 @@ e observabilidade para agir antes que o problema chegue ao usuário final.
 
 ![Arquitetura](./docs/architecture.png)
 
-> Arquivo editavel disponivel em [draw.io](https://drive.google.com/file/d/1rShSoSYqLz2x4_eYpWcZQh0acEYt6Uy2/view?usp=sharing)
+> Arquivo editavel disponivel em [draw.io](https://drive.google.com/file/d/1upY0tKSzf56IMtJ4TIzOkKQYW97kQ4JC/view?usp=sharing)
 
 ---
 
